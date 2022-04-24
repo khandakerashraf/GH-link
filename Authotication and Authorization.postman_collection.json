@@ -1,0 +1,1053 @@
+{
+	"info": {
+		"_postman_id": "2741eac8-468a-4e85-b98b-91b6cee3d266",
+		"name": "Authotication and Authorization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FFM Operation Team ( Create an administrative user)",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Create  administrative user with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"{{$randomPassword}}\",\r\n  \"firstname\": \"{{$randomFirstName}}\",\r\n  \"lastname\": \"{{$randomLastName}}\", \r\n  \"username\": \"{{$randomUserName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create an admin with valid data.\n\n**Excepted Result:** User should be able to create an admin with valid data.\n\n**Actual Result:** An admin is created with valid data.\n\n**Response:** `{ \"message\": \"Successfully registered admin user afjal1_ali.\",`\n\n`\"status\": \"success\"}`\n\n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "An admin can not be create without email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code name has string\", function () {\r",
+											"    pm.response.to.have.status(\"FORBIDDEN\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Admin can not be create without email\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"455\",\r\n  \"firstname\": \"afjal12\",\r\n  \"lastname\": \"ali\",\r\n  \"username\": \"afjal12_ali\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be able to create an admin without email.\n\n**Excepted Result:** User should not be able to create an admin without valid email.\n\n**Actual Result:** An admin is not created without email.\n\n**Response:** `{\"message\": [ \"email must be non-empty\"], \"status\": \"failed\"}`\n\n**Test Status:** Failed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "An admin can not be create without Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"afjal12@gmail.com\",\r\n  \"password\": \"\",\r\n  \"firstname\": \"afjal12\",\r\n  \"lastname\": \"ali\",\r\n  \"username\": \"afjal12_ali\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be able to create an admin without password.\n\n**Excepted Result:** User should not be able to create an admin without password.\n\n**Actual Result:** An admin is not created without password.\n\n**Response:** `{\"message\": [ \"password must be non-empty\"], \"status\": \"failed\"}`\n\n**Test Status:** Failed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "An admin can not be create without firstname",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"afjal@gmail.com\",\r\n  \"password\": \"456\",\r\n  \"firstname\": \"\",\r\n  \"lastname\": \"ali\",\r\n  \"username\": \"afjal1_ali\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be able to create an admin without firstname.\n\n**Excepted Result:** User should not be able to create an admin without firstname.\n\n**Actual Result:** An admin is not created without firstname.\n\n**Response:** `{\"message\": [ \"`firstname `must be non-empty\"], \"status\": \"failed\"}`\n\n**Test Status:** Failed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "An admin can not be create without lastname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Connection\");\r",
+											"});\r",
+											"pm.test(\"Status code name has string\", function () {\r",
+											"    pm.response.to.have.status(\"FORBIDDEN\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"afjal@gmail.com\",\r\n  \"password\": \"456\",\r\n  \"firstname\": \"afjal\",\r\n  \"lastname\": \"\",\r\n  \"username\": \"afjal1_ali\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user\n",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user\n"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be able to create an admin without lastname.\n\n**Excepted Result:** User should not be able to create an admin without lastname.\n\n**Actual Result:** An admin is not created without lastname.\n\n**Response:** `{\"message\": [ \"`lastname `must be non-empty\"], \"status\": \"failed\"}`\n\n**Test Status:** Failed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "An admin can not be create without username",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"afjal@gmail.com\",\r\n  \"password\": \"456\",\r\n  \"firstname\": \"afjal\",\r\n  \"lastname\": \"ali\",\r\n  \"username\": \"afjal1_ali\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-admin-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-admin-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be able to create an admin without username.\n\n**Excepted Result:** User should not be able to create an admin without username.\n\n**Actual Result:** An admin is not created without username.\n\n**Response:** `{\"message\": [ \"`username `must be non-empty\"], \"status\": \"failed\"}`\n\n**Test Status:** Failed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "FFM Operation Team(Create Company)",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Create a new company with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"{{$randomcompanyname}}\",\r\n  \"address\":\"{{$randomaddress}}\",\r\n  \"tin\":\"{{$randomint}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-company",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-company"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create a new company with valid data.\n\n**Excepted Result:** User should be able to create a company with valid data.\n\n**Actual Result:** A company is created with valid data.\n\n**Response:** `{ \"data\": { \"company_address\": \"MI\", \"company_id\": 283, \"company_name\": \"A1\", \"tin\": \"700\" }, \"message\": \"Successfully registered company 'A1' .\", \"status\": \"success\"}`  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negtive",
+					"item": [
+						{
+							"name": "Create a new company without name.",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"address\": \"MI\",\r\n  \"tin\": \"700\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://96.85.103.136:8001/api/v1/field-force/auth/register-company",
+									"protocol": "http",
+									"host": [
+										"96",
+										"85",
+										"103",
+										"136"
+									],
+									"port": "8001",
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-company"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create a new company without name.\n\n**Excepted Result:** User should be able to create a company without name.\n\n**Actual Result:** A company is created without name.\n\n**Response:** {    \"message\": \\[        \"name must be non-empty\"    \\],    \"status\": \"failed\"}  \n  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new company without address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"address\": \"MI\",\r\n  \"tin\": \"700\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://96.85.103.136:8001/api/v1/field-force/auth/register-company",
+									"protocol": "http",
+									"host": [
+										"96",
+										"85",
+										"103",
+										"136"
+									],
+									"port": "8001",
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-company"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create a new company without address.\n\n**Excepted Result:** User should be able to create a company without address.\n\n**Actual Result:** A company is created without address.\n\n**Response:** { \"message\": \\[ \"address must be non-empty\" \\], \"status\": \"failed\"}\n\n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new company without tin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"A1\",\r\n  \"address\": \"MI\",\r\n  \"tin\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://96.85.103.136:8001/api/v1/field-force/auth/register-company",
+									"protocol": "http",
+									"host": [
+										"96",
+										"85",
+										"103",
+										"136"
+									],
+									"port": "8001",
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-company"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create a new company without tin.\n\n**Excepted Result:** User should be able to create a company without tin.\n\n**Actual Result:** A company is created without tin.\n\n**Response:** { \"message\": \\[ \"tin must be non-empty\" \\], \"status\": \"failed\"}\n\n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Company manager (Create Register dashboard)",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "User can create a dashboard with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"polash10@gmail.com\",\r\n    \"password\": \"888777\",\r\n    \"company_id\": 123,\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"username\": \"{{$randomUserName}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can create a dashboard with valid data.\n\n**Excepted Result:** User should be able to create a dashboard with valid data.\n\n**Actual Result:** A dashboard is created with valid data.\n\n**Response:** `{ \"message\": \"Successfully registered dashboard user A13.B2.\", \"status\": \"success\"}`  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "User can not be create a dashboard without email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"a112\",\r\n    \"company_id\": 283,\r\n    \"firstname\": \"A13\",\r\n    \"lastname\": \"B2\",\r\n    \"username\": \"A13.B2\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without email.\n\n**Excepted Result:** User should not be able to create a dashboard without email..\n\n**Actual Result:** A dashboard is not created without email.\n\n**Response:** `\"message\": [  \"email must be non-empty\"  ],   \"status\": \"failed\"}`  \n  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "User can not be create a dashboard without password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"\",\r\n    \"company_id\": 283,\r\n    \"firstname\": \"A13\",\r\n    \"lastname\": \"B2\",\r\n    \"username\": \"A13.B2\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without password.\n\n**Excepted Result:** User should not be able to create a dashboard without password..\n\n**Actual Result:** A dashboard is not created without password.\n\n**Response:** `{ \"message\": [ \"password must be non-empty\" ], \"status\": \"failed\"}`  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "User can not be create a dashboard without firstname",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"a112\",\r\n    \"company_id\":283 ,\r\n    \"firstname\": \"\",\r\n    \"lastname\": \"B2\",\r\n    \"username\": \"A13.B2\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without firstname.\n\n**Excepted Result:** User should not be able to create a dashboard without firstname..\n\n**Actual Result:** A dashboard is not created without firstname.\n\n**Response:** {    \"message\": \\[  \"firstname must be non-empty\"    \\],  \"status\": \"failed\"}  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "User can not be create a dashboard without lastname",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"a112\",\r\n    \"company_id\":283 ,\r\n    \"firstname\": \"A13\",\r\n    \"lastname\": \"\",\r\n    \"username\": \"A13.B2\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without lastname.\n\n**Excepted Result:** User should not be able to create a dashboard without lastname..\n\n**Actual Result:** A dashboard is not created without lastname.\n\n**Response:** {    \"message\": \\[   \"lastname must be non-empty\"    \\],    \"status\": \"failed\"}  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "User can not be create a dashboard without username",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"a112\",\r\n    \"company_id\": 255,\r\n    \"firstname\": \"A13\",\r\n    \"lastname\": \"B2\",\r\n    \"username\": \"\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}api"
+									],
+									"path": [
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without username.\n\n**Excepted Result:** User should not be able to create a dashboard without username..\n\n**Actual Result:** A dashboard is not created without username.\n\n**Response:** { \"message\": \\[ \"username must be non-empty\" \\], \"status\": \"failed\"}  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "User can not be create a dashboard without valid ID",
+							"request": {
+								"auth": {
+									"type": "bearer"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"a112\",\r\n    \"company_id\":280 ,\r\n    \"firstname\": \"A13\",\r\n    \"lastname\": \"B2\",\r\n    \"username\": \"\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/register-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"register-dashboard-user"
+									]
+								},
+								"description": "Date: 4/5/2022\n\n**Objective:** User can not be create a dashboard without Company ID.\n\n**Excepted Result:** User should not be able to create a dashboard without Company ID\n\n**Actual Result:** A dashboard is not created without Company ID\n\n**Response:** `{ \"message\": [ \"username must be non-empty\" ], \"status\": \"failed\"}`  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Web dashboard ( login Dashboard user)",
+			"item": [
+				{
+					"name": "Positive ",
+					"item": [
+						{
+							"name": "Managers login through the valid credential",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDk3Mzk5MTQsImlhdCI6MTY0OTczNjMxNCwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.3fbToRSN6nLiTCtcN69wThuU8YGFLEaPd7WiNTnWdvE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"polash10@gmail.com\",\r\n  \"password\": \"888777\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/dashboard-user-login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"dashboard-user-login"
+									]
+								},
+								"description": "Date: 4/11/2022\n\n**Objective:** User can be login through the valid credential.\n\n**Excepted Result:** User should be able to login successfully.\n\n**Actual Result:** User logged in successfully.\n\n**Response:** `{ \"auth_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDk3NDQ4MjIsImlhdCI6MTY0OTc0MTIyMiwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.kawrxWNMdZmiRP6RaFGFW0OF6IZqn5Wi-0f81WIYWXE\", \"message\": \"Successfully logged in.\", \"status\": \"success\"}`  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative ",
+					"item": [
+						{
+							"name": "Managers login through the  without email address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"a112\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/dashboard-user-login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"dashboard-user-login"
+									]
+								},
+								"description": "Date: 4/11/2022\n\n**Objective:** User can not be login without email address.\n\n**Excepted Result:** User should not be able to login successfully.\n\n**Actual Result:** User is not successful.\n\n**Response:** {    \"message\": \\[        \"email must be non-empty\"    \\],    \"status\": \"failed\"}  \n  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						},
+						{
+							"name": "Managers login through the  without password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"A13@gmail.com\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/dashboard-user-login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"dashboard-user-login"
+									]
+								},
+								"description": "Date: 4/11/2022\n\n**Objective:** User can not be login without password.\n\n**Excepted Result:** User should not be able to login successfully.\n\n**Actual Result:** User is not successful.\n\n**Response:** `{    \"message\": [        \"password must be non-empty\"    ],    \"status\": \"failed\"}`\n\n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Web dashboard (Managers authenticate  JWT token)",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Authenticate-dashboard-user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDk5NTI3OTYsImlhdCI6MTY0OTk0OTE5Niwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.Ssn050Q_ys9fPrNo68tWArsyDXLSumo6zBxHHWKfwYQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/authenticate-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"authenticate-dashboard-user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Mnagers authenticate through the invalid JWT token",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDk3NDQ4MjIsImlhdCI6MTY0OTc0MTIyMiwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.kawrxWNMdZmiRP6RaFGFW0OF6IZqn5Wi-0f81WIYWX",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/authenticate-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"authenticate-dashboard-user"
+									]
+								},
+								"description": "Date: 4/11/22\n\n**Objective:** As a tester I should not be able to authenticate the manager through invalid JWT token.\n\n**Excepted Result:** The manager should not be able to authenticate successfully through invalid JWT token.\n\n**Actual Result:** He/She is not authenticated successfully.\n\n**Response:** { \"message\": \"Failed to parse auth token.\", \"status\": \"fail\"}  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Date: 4/11/2022\n\n**Objective:** User can not be login through without email\n\n**Excepted Result:** User should not be able to login successfully.\n\n**Actual Result:** User is not successfully.\n\n**Response:**  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+		},
+		{
+			"name": "Web Dashboar(logout-dashboard-user)",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "logout-dashboard-user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code name has string\", function () {\r",
+											"    pm.response.to.have.status(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTAwNjMxMTYsImlhdCI6MTY1MDA1OTUxNiwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.4DztSSz1LGiNVqCHPSvqEBrv3BEPvtn1lSdsfZP1-hU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/field-force/auth/logout-dashboard-user",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"field-force",
+										"auth",
+										"logout-dashboard-user"
+									]
+								},
+								"description": "Date: 4/11/2022\n\n**Objective:** User should be able to logout.\n\n**Excepted Result:** User should be able to logout successfully.\n\n**Actual Result:** User logged out successfully.\n\n**Response:** `{    \"message\": \"Successfully logged out.\",    \"status\": \"success\"}   `  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Logout Dashboard user with invalid JWT Token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDk5MTQ3OTYsImlhdCI6MTY0OTkxMTE5Niwic3ViIjozMTgsInVzZXJfdHlwZSI6IkRhc2hib2FyZCIsIm5hbWUiOiJBMTMgQjIiLCJlbWFpbCI6IkExM0BnbWFpbC5jb20iLCJtZW1iZXJfdHlwZSI6MiwiY29tcGFueV9pZCI6MjgzLCJkZXNpZ25hdGlvbiI6bnVsbCwiZGVwYXJ0bWVudCI6bnVsbH0.LBPAFRxeMaheUO81qZChROQE-HVeZxfkwZZeWS0yt",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}api/v1/field-force/auth/logout-dashboard-user",
+									"host": [
+										"{{baseURL}}api"
+									],
+									"path": [
+										"v1",
+										"field-force",
+										"auth",
+										"logout-dashboard-user"
+									]
+								},
+								"description": "Date: 4/11/2022\n\n**Objective:** User should not be able to logout with invalid JWT Token\n\n**Excepted Result:** User should not be able to logout successfully.\n\n**Actual Result:** User unable to log out successfully.\n\n**Response:** `{    \"message\": \"Invalid token. Please log in again.\",    \"status\": \"fail\"}   `  \n**Test Status:** Passed.\n\n**SE:** Shahed.\n\n**Review by:** Pranto Mazumdar\n\n**Tester:** Ashraf."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "variable_key",
+			"value": ""
+		}
+	]
+}
